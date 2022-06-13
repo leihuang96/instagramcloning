@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-  .navBtn {
+  .btn {
     @apply h-6 w-6 inline-flex cursor-pointer hover:scale-125 transition-all duration-150 ease-out;
   }
 }

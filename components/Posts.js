@@ -1,7 +1,7 @@
-import { passThroughSymbol } from 'next/dist/server/web/spec-compliant/fetch-event';
+import { passThroughSymbol } from 'next/dist/server/web/spec-compliant/fetch-event'
 import React from 'react'
 import Post from './Post'
-import { faker } from '@faker-js/faker';
+import { faker } from '@faker-js/faker'
 
 const posts = [
   {
@@ -9,16 +9,16 @@ const posts = [
     username: 'lei',
     userImg: faker.image.avatar(),
     img: faker.image.city(),
-    caption: faker.lorem.text(),
+    caption: '3123123',
   },
   {
     id: 123,
     username: 'lei',
     userImg: faker.image.avatar(),
     img: faker.image.technics(),
-    caption: faker.lorem.text(),
+    caption: '21312321',
   },
-];
+]
 
 function Posts() {
   return (
@@ -34,7 +34,7 @@ function Posts() {
         />
       ))}
     </div>
-  );
+  )
 }
 
-export default Posts;
+export default Posts

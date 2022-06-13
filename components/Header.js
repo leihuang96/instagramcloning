@@ -1,15 +1,20 @@
 import React from 'react'
 import Image from 'next/image'
-import { IconContext } from 'react-icons';
-import { BsInstagram, BsSearch} from 'react-icons/bs';
+import { IconContext } from 'react-icons'
+import { BsInstagram, BsSearch } from 'react-icons/bs'
 import {
   AiFillHome,
   AiOutlineHome,
   AiOutlineHeart,
   AiFillHeart,
-} from 'react-icons/ai';
-import { RiMessengerLine, RiMessengerFill,RiAddBoxLine, RiAddBoxFill } from 'react-icons/ri';
-import { MdExplore, MdOutlineExplore } from 'react-icons/md';
+} from 'react-icons/ai'
+import {
+  RiMessengerLine,
+  RiMessengerFill,
+  RiAddBoxLine,
+  RiAddBoxFill,
+} from 'react-icons/ri'
+import { MdExplore, MdOutlineExplore } from 'react-icons/md'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
@@ -40,14 +45,16 @@ function Header() {
         </div>
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
-          <AiFillHome className="navBtn" />
-          <div className="relative navBtn">
-            <RiMessengerLine className="navBtn" />
-            <div className='absolute -top-2 -right-3 text-sm w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white'>1</div>
+          <AiFillHome className="btn" />
+          <div className="relative btn">
+            <RiMessengerLine className="btn" />
+            <div className="absolute -top-2 -right-3 text-sm w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white">
+              1
+            </div>
           </div>
-          <RiAddBoxLine className="navBtn" />
-          <MdOutlineExplore className="navBtn" />
-          <AiOutlineHeart className="navBtn" />
+          <RiAddBoxLine className="btn" />
+          <MdOutlineExplore className="btn" />
+          <AiOutlineHeart className="btn" />
           <img
             src="/photos/userImg.JPG"
             alt="profile photo"
@@ -56,7 +63,7 @@ function Header() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default Header

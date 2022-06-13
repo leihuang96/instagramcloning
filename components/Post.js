@@ -5,12 +5,12 @@ import {
   BsSuitHeartFill,
   BsBookmark,
   BsBookmarkFill,
-  BsChat
-} from 'react-icons/bs';
-import { IoPaperPlaneOutline } from 'react-icons/io5';
+  BsChat,
+} from 'react-icons/bs'
+import { IoPaperPlaneOutline } from 'react-icons/io5'
+import { TbMoodSmile } from 'react-icons/tb'
 
-
-function Post({id, username, userImg, img, caption}) {
+function Post({ id, username, userImg, img, caption }) {
   return (
     <div className="bg-white my-7 border rounded-sm">
       {/* header */}
@@ -35,14 +35,23 @@ function Post({id, username, userImg, img, caption}) {
         <BsBookmark className="btn" />
       </div>
       {/* caption */}
-      <div className='p-5 truncate'>
-<span className='font-bold mr-1'>{username}</span>
-{caption}
+      <div className="p-5 truncate">
+        <span className="font-bold mr-1">{username}</span>
+        {caption}
       </div>
       {/* comments */}
       {/* input box */}
+      <form className="flex items-center p-4 border-t">
+        <TbMoodSmile className="h-7 w-7" />
+        <input
+          placeholder="Add a comment..."
+          type="text"
+          className="border-none flex-1 focus:ring-0 outline-none"
+        />
+        <button className="font-semibold text-sky-500">Post</button>
+      </form>
     </div>
-  );
+  )
 }
 
-export default Post;
+export default Post
