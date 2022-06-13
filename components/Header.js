@@ -10,7 +10,7 @@ import {
 } from 'react-icons/ai';
 import { RiMessengerLine, RiMessengerFill,RiAddBoxLine, RiAddBoxFill } from 'react-icons/ri';
 import { MdExplore, MdOutlineExplore } from 'react-icons/md';
-import ProfilePhoto from '../public/profile.JPG'
+import ProfilePhoto from '../public/userImg.JPG'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {

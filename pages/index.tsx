@@ -5,7 +5,7 @@ import Feed from "../components/Feed"
 
 const Home: NextPage = () => {
   return (
-    <div className="">
+    <div className="bg-zinc-50 h-screen overflow-scroll scrollbar-hide">
       <Head>
         <title>Instagram Cloning</title>
       </Head>

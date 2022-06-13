@@ -8,5 +8,9 @@ module.exports = {
     extend: {},
   },
   //A plugin that provides a basic reset for form styles that makes form elements easy to override with utilities.
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar'),
+    require('tailwind-scrollbar-hide'),
+  ],
 };
