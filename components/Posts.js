@@ -8,15 +8,15 @@ const posts = [
     id: 123,
     username: 'lei',
     userImg: faker.image.avatar(),
-    img: '../public/postImg.JPG',
-    caption: 'Adorable cat',
+    img: faker.image.city(),
+    caption: faker.lorem.text(),
   },
   {
     id: 123,
     username: 'lei',
     userImg: faker.image.avatar(),
-    img: '../public/postImg.JPG',
-    caption: 'Adorable cat',
+    img: faker.image.technics(),
+    caption: faker.lorem.text(),
   },
 ];
 

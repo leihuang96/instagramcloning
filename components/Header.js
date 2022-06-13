@@ -10,12 +10,11 @@ import {
 } from 'react-icons/ai';
 import { RiMessengerLine, RiMessengerFill,RiAddBoxLine, RiAddBoxFill } from 'react-icons/ri';
 import { MdExplore, MdOutlineExplore } from 'react-icons/md';
-import ProfilePhoto from '../public/userImg.JPG'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
   return (
-    <div className='shadow-sm border-b bg-white sticky top-0 z-50'>
+    <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
         {/* Left - Logo*/}
         <div className="relative inline-grid w-24 cursor-pointer">
@@ -41,20 +40,19 @@ function Header() {
         </div>
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
-          <IconContext.Provider value={{ className: 'navBtn' }}>
-            <AiFillHome />
-            <RiMessengerLine />
-            <RiAddBoxLine />
-            <MdOutlineExplore />
-            <AiOutlineHeart />
-            <Image
-              src={ProfilePhoto}
-              alt="profile photo"
-              height="40"
-              width="40"
-              className=" cursor-pointer rounded-full"
-            ></Image>
-          </IconContext.Provider>
+          <AiFillHome className="navBtn" />
+          <div className="relative navBtn">
+            <RiMessengerLine className="navBtn" />
+            <div className='absolute -top-2 -right-3 text-sm w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white'>1</div>
+          </div>
+          <RiAddBoxLine className="navBtn" />
+          <MdOutlineExplore className="navBtn" />
+          <AiOutlineHeart className="navBtn" />
+          <img
+            src="/photos/userImg.JPG"
+            alt="profile photo"
+            className=" h-6 w-6 rounded-full cursor-pointer"
+          ></img>
         </div>
       </div>
     </div>
