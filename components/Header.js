@@ -15,9 +15,13 @@ import {
   RiAddBoxFill,
 } from 'react-icons/ri'
 import { MdExplore, MdOutlineExplore } from 'react-icons/md'
+import { signIn, useSession } from 'next-auth/react'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
+  const { data: session } = useSession();
+
+
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
@@ -46,20 +50,26 @@ function Header() {
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
           <AiFillHome className="btn" />
-          <div className="relative btn">
-            <RiMessengerLine className="btn" />
-            <div className="absolute -top-2 -right-3 text-sm w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white">
-              1
-            </div>
-          </div>
-          <RiAddBoxLine className="btn" />
-          <MdOutlineExplore className="btn" />
-          <AiOutlineHeart className="btn" />
-          <img
-            src="/photos/userImg.JPG"
-            alt="profile photo"
-            className=" h-6 w-6 rounded-full cursor-pointer"
-          ></img>
+          {session ? (
+            <>
+              <div className="relative btn">
+                <RiMessengerLine className="btn" />
+                <div className="absolute -top-2 -right-3 text-sm w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white">
+                  1
+                </div>
+              </div>
+              <RiAddBoxLine className="btn" />
+              <MdOutlineExplore className="btn" />
+              <AiOutlineHeart className="btn" />
+              <img
+                src={session?.user?.image}
+                alt="profile photo"
+                className=" h-6 w-6 rounded-full cursor-pointer"
+              />
+            </>
+          ) : (
+            <button onClick={signIn}>Sign In</button>
+          )}
         </div>
       </div>
     </div>

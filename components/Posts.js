@@ -12,7 +12,7 @@ function Posts() {
       id: i,
       username: faker.internet.userName(),
       userImg: faker.image.avatar(),
-      img: faker.image.technics(),
+      img: faker.image.abstract(640, 480, true),
       caption: faker.hacker.phrase(),
     }))
 
@@ -24,7 +24,6 @@ function Posts() {
       {posts.map((post) => (
         <Post
           key={post.id}
-          id={post.id}
           username={post.username}
           userImg={post.userImg}
           img={post.img}
