@@ -16,16 +16,21 @@ import {
 } from 'react-icons/ri'
 import { MdExplore, MdOutlineExplore } from 'react-icons/md'
 import { signIn, signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
   const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
         {/* Left - Logo*/}
-        <div className="relative inline-grid w-24 cursor-pointer">
+        <div
+          onClick={() => router.push('/')}
+          className="relative inline-grid w-24 cursor-pointer"
+        >
           <Image
             alt=""
             src="/../public/instagram-logo.png"
@@ -33,6 +38,7 @@ function Header() {
             objectFit="contain"
           />
         </div>
+
         {/* Middle - Search input field*/}
         <div className="max-w-xs hidden sm:inline-grid">
           <div className="relative mt-1 p-3 rounded-md">
@@ -49,7 +55,7 @@ function Header() {
 
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
-          <AiFillHome className="btn" />
+          <AiFillHome onClick={() => router.push('/')} className="btn" />
           {session ? (
             <>
               <div className="relative btn">
