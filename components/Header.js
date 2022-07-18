@@ -15,7 +15,7 @@ import {
   RiAddBoxFill,
 } from 'react-icons/ri'
 import { MdExplore, MdOutlineExplore } from 'react-icons/md'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
@@ -46,6 +46,7 @@ function Header() {
             ></input>
           </div>
         </div>
+
         {/* Right */}
         <div className="flex items-center justify-end space-x-4">
           <AiFillHome className="btn" />
@@ -64,7 +65,7 @@ function Header() {
                 onClick={signOut}
                 src={session.user.image}
                 alt="profile photo"
-                className=" h-10 w-10 rounded-full cursor-pointer"
+                className="h-10 w-10 rounded-full cursor-pointer"
               />
             </>
           ) : (
@@ -76,4 +77,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;
