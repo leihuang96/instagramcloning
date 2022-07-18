@@ -17,10 +17,13 @@ import {
 import { MdExplore, MdOutlineExplore } from 'react-icons/md'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { useRecoilState } from 'recoil'
+import { modalState } from '../atoms/modalAtom'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
   const { data: session } = useSession();
+  const [open, setOpen] = useRecoilState(modalState);
   const router = useRouter();
 
   return (
@@ -64,7 +67,7 @@ function Header() {
                   1
                 </div>
               </div>
-              <RiAddBoxLine className="btn" />
+              <RiAddBoxLine onClick={()=> setOpen(true)} className="btn" />
               <MdOutlineExplore className="btn" />
               <AiOutlineHeart className="btn" />
               <img
