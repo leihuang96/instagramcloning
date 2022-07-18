@@ -21,7 +21,6 @@ import { signIn, useSession } from 'next-auth/react'
 function Header() {
   const { data: session } = useSession();
 
-
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
@@ -62,9 +61,10 @@ function Header() {
               <MdOutlineExplore className="btn" />
               <AiOutlineHeart className="btn" />
               <img
-                src={session?.user?.image}
+                onClick={signOut}
+                src={session.user.image}
                 alt="profile photo"
-                className=" h-6 w-6 rounded-full cursor-pointer"
+                className=" h-10 w-10 rounded-full cursor-pointer"
               />
             </>
           ) : (
@@ -73,7 +73,7 @@ function Header() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Header
