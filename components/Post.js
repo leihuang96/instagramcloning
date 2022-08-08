@@ -1,3 +1,4 @@
+import {addDoc, collection } from 'firebase/firestore';
 import React from 'react'
 import {
   BsThreeDots,
@@ -11,6 +12,18 @@ import { IoPaperPlaneOutline } from 'react-icons/io5'
 import { TbMoodSmile } from 'react-icons/tb'
 
 function Post({ id, username, userImg, img, caption }) {
+  const { data: session } = useSession();
+  const [comment, setComment] = useState('');
+  const [comments, setComments] = useState([]);
+
+  const sendComment = async (e) => {
+    e.preventDefault();
+    const commentToSend = comment;
+    setComment('');
+
+    await addDoc(collection)
+  }
+
   return (
     <div className="bg-white my-7 border rounded-sm">
       {/* header */}
