@@ -1,33 +1,32 @@
-import { passThroughSymbol } from 'next/dist/server/web/spec-compliant/fetch-event'
 import React, { useEffect, useState } from 'react'
 import Post from './Post'
-import { faker } from '@faker-js/faker'
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+import { Snapshot } from 'recoil';
+import { db } from '../firebase';
 
 function Posts() {
 
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    const posts = [...Array(2)].map((_, i) => ({
-      id: i,
-      username: faker.internet.userName(),
-      userImg: faker.image.avatar(),
-      img: faker.image.abstract(640, 480, true),
-      caption: faker.hacker.phrase(),
-    }))
-
-    setPosts(posts)
-  }, []);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+        (snapshot) => {
+          setPosts(snapshot.docs);
+        }
+      ), [db]);
   
   return (
     <div>
       {posts.map((post) => (
         <Post
           key={post.id}
-          username={post.username}
-          userImg={post.userImg}
-          img={post.img}
-          caption={post.caption}
+          id={post.id}
+          username={post.data().username}
+          userImg={post.data().profileImg}
+          img={post.data().image}
+          caption={post.data().caption}
         />
       ))}
     </div>
