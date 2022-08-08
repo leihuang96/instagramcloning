@@ -1,4 +1,4 @@
-import {addDoc, collection } from 'firebase/firestore';
+import {addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import React from 'react'
 import {
   BsThreeDots,
@@ -21,7 +21,12 @@ function Post({ id, username, userImg, img, caption }) {
     const commentToSend = comment;
     setComment('');
 
-    await addDoc(collection)
+    await addDoc(collection(db, 'posts', id, 'comments'), {
+      comment: commentToSend,
+      username: session.user.username,
+      userImage: session.user.image,
+      timestamp: serverTimestamp(),
+    })
   }
 
   return (
