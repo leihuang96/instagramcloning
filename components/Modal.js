@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import { Snapshot, useRecoilState } from 'recoil'
 import { modalState } from '../atoms/modalAtom'
 import { AiOutlineCamera } from 'react-icons/ai';
@@ -36,9 +36,9 @@ function Modal() {
     const imageRef = ref(storage, 'posts/${docRef.id}/image');
 
     await uploadString(imageRef, selectedFile, 'data_url').then(async snapshot => {
-      const downloadURL = await getDownloadURL(imageRef)
+      const downloadURL = await getDownloadURL(imageRef);
       await updateDoc(doc(db, 'posts', docRef.id), {
-        image: downloadURL,
+        image: downloadURL
       })
     });
 
@@ -55,8 +55,8 @@ function Modal() {
 
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
-    }
-  }
+    };
+  };
     
   return (
     <Transition.Root show={open} as={Fragment}>
