@@ -1,5 +1,5 @@
 import React from 'react'
-import { signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 
 function MiniProfile() {
   const { data: session } = useSession();
@@ -15,7 +15,7 @@ function MiniProfile() {
         <h2 className="font-bold">{session?.user?.username}</h2>
         <h3 className="text-sm text-gray-400">{session?.user?.username}</h3>
       </div>
-      <button onClick={signOut} className="text-blue-500 text-sm font-semibold">
+      <button onClick={signIn} className="text-blue-500 text-sm font-semibold">
         Switch
       </button>
     </div>

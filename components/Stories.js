@@ -10,9 +10,9 @@ function Stories() {
   useEffect(() => {
     const suggestions = [...Array(20).keys()].map((i) => ({
       id: i,
-      username: faker.internet.userName(),
       avatar: faker.image.avatar(),
-    }))
+      username: faker.internet.userName(),
+    }));
     setSuggestions(suggestions)
   }, [])
 
