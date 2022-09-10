@@ -49,27 +49,27 @@ function Header() {
               <BsSearch className="h-5 w-5 text-gray-500" />
             </div>
             <input
-              className="bg-gray-200 block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-black focus:border-black"
+              className="bg-gray-50 block w-full pl-10 sm:text-sm border-gray-300 rounded-md focus:ring-black focus:border-black"
               type="text"
               placeholder="Search"
             ></input>
           </div>
         </div>
 
-        {/* Right */}
+        {/* Right - icons*/}
         <div className="flex items-center justify-end space-x-4">
-          <AiFillHome onClick={() => router.push('/')} className="btn" />
+          <AiFillHome onClick={() => router.push('/')} className="navBtn" />
           {session ? (
             <>
-              <div className="relative btn">
-                <RiMessengerLine className="btn" />
+              <div className="relative navBtn">
+                <RiMessengerLine className="navBtn" />
                 <div className="absolute -top-2 -right-3 text-sm w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white">
                   1
                 </div>
               </div>
-              <RiAddBoxLine onClick={()=> setOpen(true)} className="btn" />
-              <MdOutlineExplore className="btn" />
-              <AiOutlineHeart className="btn" />
+              <RiAddBoxLine onClick={() => setOpen(true)} className="navBtn" />
+              <MdOutlineExplore className="navBtn" />
+              <AiOutlineHeart className="navBtn" />
               <img
                 onClick={signOut}
                 src={session.user.image}
