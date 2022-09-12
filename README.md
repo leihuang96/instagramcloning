@@ -1,3 +1,3 @@
 # Instagram Cloning
 
-2:28:36
+3:17:01

@@ -25,8 +25,6 @@ function signIn({ providers }) {
   );
 }
 
-export default signIn;
-
 // server side
 export async function getServerSideProps() {
   const providers = await getProviders();
@@ -34,3 +32,5 @@ export async function getServerSideProps() {
     props: { providers },
   }
 }
+
+export default signIn;

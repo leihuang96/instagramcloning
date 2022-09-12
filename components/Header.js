@@ -22,6 +22,7 @@ import { modalState } from '../atoms/modalAtom'
 
 // if you don’t have state or refs, prefer normal functions (not arrow functions) over classes
 function Header() {
+  // rename the data object to session
   const { data: session } = useSession();
   const [open, setOpen] = useRecoilState(modalState);
   const router = useRouter();
@@ -59,6 +60,7 @@ function Header() {
         {/* Right - icons*/}
         <div className="flex items-center justify-end space-x-4">
           <AiFillHome onClick={() => router.push('/')} className="navBtn" />
+          {/*before we log in, there would be no nav buttons besides the home icon.*/}
           {session ? (
             <>
               <div className="relative navBtn">
