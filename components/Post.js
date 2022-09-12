@@ -1,5 +1,6 @@
 import {addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import React from 'react'
+import { Fragment, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import {
   BsThreeDots,
   BsSuitHeart,

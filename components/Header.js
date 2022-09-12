@@ -30,7 +30,7 @@ function Header() {
   return (
     <div className="shadow-sm border-b bg-white sticky top-0 z-50">
       <div className="flex justify-between max-w-6xl mx-5 lg:mx-auto">
-        {/* Left - Logo*/}
+        {/*left logo*/}
         <div
           onClick={() => router.push('/')}
           className="relative inline-grid w-24 cursor-pointer"
@@ -42,7 +42,6 @@ function Header() {
             objectFit="contain"
           />
         </div>
-
         {/* Middle - Search input field*/}
         <div className="max-w-xs hidden sm:inline-grid">
           <div className="relative mt-1 p-3 rounded-md">
@@ -56,9 +55,9 @@ function Header() {
             ></input>
           </div>
         </div>
-
         {/* Right - icons*/}
         <div className="flex items-center justify-end space-x-4">
+          {/*use next router to guide user to another page.*/}
           <AiFillHome onClick={() => router.push('/')} className="navBtn" />
           {/*before we log in, there would be no nav buttons besides the home icon.*/}
           {session ? (
