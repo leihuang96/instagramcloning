@@ -1,6 +1,3 @@
-import {addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { Fragment, useRef, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import {
   BsThreeDots,
   BsSuitHeart,
@@ -8,17 +5,43 @@ import {
   BsBookmark,
   BsBookmarkFill,
   BsChat,
-} from 'react-icons/bs'
-import { IoPaperPlaneOutline } from 'react-icons/io5'
-import { TbMoodSmile } from 'react-icons/tb'
+} from 'react-icons/bs';
+import { IoPaperPlaneOutline } from 'react-icons/io5';
+import { TbMoodSmile } from 'react-icons/tb';
+
+import {
+  addDoc,
+  query,
+  orderBy,
+  collection,
+  onSnapshot,
+  serverTimestamp,
+} from 'firebase/firestore';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { db } from '../firebase';
+import Moment from "react-moment";
 
 function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
 
+  useEffect(
+    () =>
+      onSnapshot(
+        query(
+          collection(db, 'posts', id, 'comments'),
+          orderBy('timestamp', 'desc')
+        ),
+        (snapshot) => setComments(snapshot.docs)
+      ),
+    [db]
+  );
+
   const sendComment = async (e) => {
     e.preventDefault();
+
     const commentToSend = comment;
     setComment('');
 
@@ -27,12 +50,11 @@ function Post({ id, username, userImg, img, caption }) {
       username: session.user.username,
       userImage: session.user.image,
       timestamp: serverTimestamp(),
-    })
-  }
+    });
+  };
 
   return (
     <div className="bg-white my-7 border rounded-sm">
-
       {/* header */}
       <div className="flex items-center p-5">
         <img
@@ -47,15 +69,18 @@ function Post({ id, username, userImg, img, caption }) {
       {/* img */}
       <img src={img} className="object-cover w-full" alt="" />
 
-      {/* buttons */}
-      <div className="flex justify-between px-4 pt-4">
-        <div className="flex space-x-4">
-          <BsSuitHeart className="btn" />
-          <BsChat className="btn " />
-          <IoPaperPlaneOutline className="btn" />
+      {/* buttons: only show buttons when we log in*/}
+
+      {session && (
+        <div className="flex justify-between px-4 pt-4">
+          <div className="flex space-x-4">
+            <BsSuitHeart className="btn" />
+            <BsChat className="btn " />
+            <IoPaperPlaneOutline className="btn" />
+          </div>
+          <BsBookmark className="btn" />
         </div>
-        <BsBookmark className="btn" />
-      </div>
+      )}
 
       {/* caption */}
       <div className="p-5 truncate">
@@ -64,19 +89,50 @@ function Post({ id, username, userImg, img, caption }) {
       </div>
 
       {/* comments */}
-      
+      {comments.length > 0 && (
+        <div className="ml-10 h-20 overflow-y-scroll scrollbar-thumb-black scrollbar-thin">
+          {comments.map((comment) => (
+            <div key={comment.id} className="flex items-center space-x-2 mb-3">
+              <img
+                className="h-7 rounded-full"
+                src={comment.data().userImage}
+                alt=""
+              />
+              <p className="text-sm flex-1">
+                <span className="font-bold">{comment.data().username}</span>{' '}
+                {comment.data().comment}
+              </p>
+              <Moment fromNow className='pr-5 text-xs'>
+                {comment.data().timestamp?.toDate()}
+              </Moment>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* input box */}
-      <form className="flex items-center p-4 border-t">
-        <TbMoodSmile className="h-7 w-7" />
-        <input
-          placeholder="Add a comment..."
-          type="text"
-          className="border-none flex-1 focus:ring-0 outline-none"
-        />
-        <button className="font-semibold text-sky-500">Post</button>
-      </form>
+      {session && (
+        <form className="flex items-center p-4 border-t">
+          <TbMoodSmile className="h-7 w-7" />
+          <input
+            placeholder="Add a comment..."
+            type="text"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="border-none flex-1 focus:ring-0 outline-none"
+          />
+          <button
+            type="submit"
+            onClick={sendComment}
+            disabled={!comment.trim()}
+            className="font-semibold text-sky-500"
+          >
+            Post
+          </button>
+        </form>
+      )}
     </div>
-  )
+  );
 }
 
-export default Post
+export default Post;

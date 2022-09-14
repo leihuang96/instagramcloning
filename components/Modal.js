@@ -32,7 +32,7 @@ function Modal() {
 
     // 2) get the post ID for the newly created post.
     // 3) upload the image to firebase storage with the post ID.
-    const imageRef = ref(storage, 'posts/${docRef.id}/image');
+    const imageRef = ref(storage, `posts/${docRef.id}/image`);
 
     // 4) get a download URL from fb storage and update to original post with image.
     await uploadString(imageRef, selectedFile, 'data_url').then(

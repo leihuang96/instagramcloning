@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Post from './Post'
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
-import { Snapshot } from 'recoil';
 import { db } from '../firebase';
 
 function Posts() {
@@ -10,12 +9,13 @@ function Posts() {
 
   useEffect(
     () =>
-      onSnapshot(
+    onSnapshot(
         query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
         (snapshot) => {
           setPosts(snapshot.docs);
         }
-      ), [db]);
+      ),
+    [db]);
   
   return (
     <div>
