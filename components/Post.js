@@ -5,6 +5,7 @@ import {
   BsBookmark,
   BsBookmarkFill,
   BsChat,
+  BsHeartFill,
 } from 'react-icons/bs';
 import { IoPaperPlaneOutline } from 'react-icons/io5';
 import { TbMoodSmile } from 'react-icons/tb';
@@ -16,6 +17,9 @@ import {
   collection,
   onSnapshot,
   serverTimestamp,
+  setDoc,
+  doc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useSession } from 'next-auth/react';
@@ -26,6 +30,8 @@ function Post({ id, username, userImg, img, caption }) {
   const { data: session } = useSession();
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [hasLiked, setHasLiked] = useState(false);
 
   useEffect(
     () =>
@@ -36,8 +42,26 @@ function Post({ id, username, userImg, img, caption }) {
         ),
         (snapshot) => setComments(snapshot.docs)
       ),
-    [db]
+    [db, id]
   );
+
+  useEffect(
+    () =>
+      onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => setLikes(snapshot.docs)), [db, id]);
+  
+  useEffect(() => 
+    setHasLiked(
+      likes.findIndex(like => (like.id === session?.user?.uid)) !== -1), [likes]);
+  
+  const likePost = async () => {
+    if (hasLiked) {
+      await deleteDoc(doc(db, 'posts', id, 'likes', session.user.uid));
+    }else{
+      await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
+        username: session.user.username,
+      });
+    }
+  };
 
   const sendComment = async (e) => {
     e.preventDefault();
@@ -74,7 +98,12 @@ function Post({ id, username, userImg, img, caption }) {
       {session && (
         <div className="flex justify-between px-4 pt-4">
           <div className="flex space-x-4">
-            <BsSuitHeart className="btn" />
+            {hasLiked ? (
+              <BsSuitHeartFill onClick={likePost} className="btn text-red-500" />
+            ) : (
+              <BsSuitHeart onClick={likePost} className="btn" />
+            )}
+
             <BsChat className="btn " />
             <IoPaperPlaneOutline className="btn" />
           </div>
@@ -102,7 +131,7 @@ function Post({ id, username, userImg, img, caption }) {
                 <span className="font-bold">{comment.data().username}</span>{' '}
                 {comment.data().comment}
               </p>
-              <Moment fromNow className='pr-5 text-xs'>
+              <Moment fromNow className="pr-5 text-xs">
                 {comment.data().timestamp?.toDate()}
               </Moment>
             </div>
